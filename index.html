@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Jaanu ❤️</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  overflow:hidden;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#ff416c,#ff4b2b);
+  color:white;
+}
+
+.page{
+  position:absolute;
+  inset:0;
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:25px;
+}
+
+.page.active{
+  display:flex;
+}
+
+h1{
+  font-size:clamp(32px,8vw,65px);
+  margin-bottom:20px;
+  text-shadow:0 4px 15px #8b0020;
+}
+
+h2{
+  font-size:clamp(25px,6vw,45px);
+}
+
+button{
+  border:0;
+  padding:14px 30px;
+  border-radius:50px;
+  background:white;
+  color:#ff2455;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 8px 25px #7b001e;
+  margin-top:25px;
+  transition:.2s;
+}
+
+button:hover{
+  transform:scale(1.08);
+}
+
+.heart{
+  width:150px;
+  height:150px;
+  background:#ff174f;
+  transform:rotate(-45deg);
+  position:relative;
+  margin:40px;
+  animation:heartbeat 1s infinite;
+  box-shadow:0 0 40px #ff003c;
+}
+
+.heart:before,
+.heart:after{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  background:#ff174f;
+  border-radius:50%;
+}
+
+.heart:before{
+  top:-75px;
+  left:0;
+}
+
+.heart:after{
+  left:75px;
+  top:0;
+}
+
+@keyframes heartbeat{
+  50%{transform:rotate(-45deg) scale(1.12);}
+}
+
+/* Arrow */
+.arrow{
+  position:absolute;
+  width:260px;
+  height:8px;
+  background:#222;
+  left:-300px;
+  top:50%;
+  transform:rotate(-8deg);
+  z-index:5;
+  animation:shoot 2.8s forwards;
+}
+
+.arrow:after{
+  content:"";
+  position:absolute;
+  right:-18px;
+  top:-7px;
+  border-left:25px solid #222;
+  border-top:11px solid transparent;
+  border-bottom:11px solid transparent;
+}
+
+.arrow:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:-12px;
+  width:28px;
+  height:30px;
+  border-left:6px solid #222;
+}
+
+@keyframes shoot{
+  0%{left:-300px;}
+  70%{left:calc(50% - 130px);}
+  100%{left:calc(100% + 300px);}
+}
+
+/* Message spam */
+.message-area{
+  width:100%;
+  height:65vh;
+  overflow:hidden;
+  position:relative;
+}
+
+.love-msg{
+  position:absolute;
+  font-weight:bold;
+  font-size:20px;
+  animation:floatUp linear forwards;
+  white-space:nowrap;
+  text-shadow:0 2px 7px #8b0020;
+}
+
+@keyframes floatUp{
+  from{
+    transform:translateY(100vh) rotate(-8deg);
+    opacity:0;
+  }
+  15%{opacity:1;}
+  to{
+    transform:translateY(-120px) rotate(8deg);
+    opacity:0;
+  }
+}
+
+/* Birthday */
+.birthday{
+  font-size:clamp(38px,10vw,80px);
+  animation:bounce 1s infinite alternate;
+}
+
+@keyframes bounce{
+  to{transform:scale(1.08);}
+}
+
+.wish{
+  position:absolute;
+  font-size:22px;
+  font-weight:bold;
+  animation:wishFall linear forwards;
+}
+
+@keyframes wishFall{
+  from{
+    transform:translateY(-100px) rotate(0);
+    opacity:0;
+  }
+  15%{opacity:1;}
+  to{
+    transform:translateY(110vh) rotate(360deg);
+    opacity:.2;
+  }
+}
+
+/* Hug */
+.hug{
+  font-size:130px;
+  animation:hug 1.5s infinite alternate;
+}
+
+@keyframes hug{
+  to{transform:scale(1.18) rotate(4deg);}
+}
+
+.hug-text{
+  font-size:28px;
+  margin:15px;
+}
+
+/* YES page */
+.yes-area{
+  position:relative;
+}
+
+.kiss{
+  position:absolute;
+  font-size:35px;
+  animation:kissFly 3s linear forwards;
+  pointer-events:none;
+}
+
+@keyframes kissFly{
+  from{
+    transform:translate(0,0) scale(.4);
+    opacity:0;
+  }
+  15%{opacity:1;}
+  to{
+    transform:translate(var(--x),var(--y)) rotate(360deg) scale(1.5);
+    opacity:0;
+  }
+}
+
+.no-btn{
+  background:#eee;
+  color:#555;
+  margin-left:10px;
+}
+
+.small{
+  margin-top:10px;
+  opacity:.85;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<section class="page active" id="page1">
+  <h1>For You ❤️</h1>
+
+  <div class="heart"></div>
+
+  <div class="arrow"></div>
+
+  <p class="small">An arrow is coming with lots of love... 💘</p>
+
+  <button onclick="nextPage()">Open My Heart ❤️</button>
+</section>
+
+
+<!-- PAGE 2 -->
+<section class="page" id="page2">
+  <h1>💖 I Love You 💖</h1>
+
+  <div class="message-area" id="loveArea"></div>
+
+  <button onclick="nextPage()">Next 💕</button>
+</section>
+
+
+<!-- PAGE 3 -->
+<section class="page" id="page3">
+  <div class="birthday">🎂 HAPPY BIRTHDAY 🎂</div>
+
+  <h2>My Jaanu ❤️ Nishu 💕</h2>
+
+  <div class="message-area" id="birthdayArea"></div>
+
+  <button onclick="nextPage()">Next 🎁</button>
+</section>
+
+
+<!-- PAGE 4 -->
+<section class="page" id="page4">
+  <div class="hug">🤗❤️🤗</div>
+
+  <h1>Virtual Hug</h1>
+
+  <div class="hug-text">
+    Sending you the biggest hug ever 🫂❤️
+  </div>
+
+  <h2>Do you love me? 🥺❤️</h2>
+
+  <div>
+    <button onclick="yesLove()">YES ❤️</button>
+    <button class="no-btn" onclick="moveNo(this)">NO 😜</button>
+  </div>
+</section>
+
+
+<!-- PAGE 5 -->
+<section class="page" id="page5">
+  <h1>YAYYY! ❤️🥰</h1>
+
+  <h2>You said YES! 😭❤️</h2>
+
+  <p class="hug-text">
+    Then unlimited kisses for you... 💋
+  </p>
+
+  <div class="yes-area" id="kissArea"></div>
+
+  <button onclick="kissSpam()">More Kisses 💋</button>
+</section>
+
+
+<script>
+
+let currentPage = 1;
+
+function nextPage(){
+
+  document.getElementById("page"+currentPage)
+    .classList.remove("active");
+
+  currentPage++;
+
+  if(currentPage > 5){
+    currentPage = 5;
+  }
+
+  document.getElementById("page"+currentPage)
+    .classList.add("active");
+
+  if(currentPage === 2){
+    startLoveSpam();
+  }
+
+  if(currentPage === 3){
+    startBirthdaySpam();
+  }
+}
+
+
+/* LOVE MESSAGE SPAM */
+
+const loveMessages = [
+  "I Love You Jaanu ❤️",
+  "I Love You Nishu 🥰",
+  "My Sweetheart 💕",
+  "You are my favorite person ❤️",
+  "Love you forever 💖",
+  "My Jaan ❤️",
+  "My Nishu 🥺💕",
+  "You are so special ❤️",
+  "I miss you 😘",
+  "Lots of love for you 💗",
+  "You are my happiness 🥰",
+  "My cute sweetheart 💕",
+  "Always yours ❤️",
+  "Forever and always 💖",
+  "I love you infinity ♾️❤️",
+  "Meri Jaanu 😘",
+  "Nishu meri jaan ❤️",
+  "Sweetheart forever 💕"
+];
+
+function startLoveSpam(){
+
+  const area = document.getElementById("loveArea");
+
+  setInterval(()=>{
+
+    const msg = document.createElement("div");
+
+    msg.className = "love-msg";
+    msg.innerText =
+      loveMessages[Math.floor(Math.random()*loveMessages.length)];
+
+    msg.style.left =
+      Math.random()*85 + "%";
+
+    msg.style.animationDuration =
+      (3 + Math.random()*4) + "s";
+
+    area.appendChild(msg);
+
+    setTimeout(()=>{
+      msg.remove();
+    },7000);
+
+  },220);
+}
+
+
+/* BIRTHDAY WISH SPAM */
+
+const birthdayMessages = [
+  "🎂 Happy Birthday Jaanu ❤️",
+  "🥳 Happy Birthday Nishu!",
+  "🎉 Stay Happy Always ❤️",
+  "💖 Lots of Love & Happiness",
+  "🎁 May all your wishes come true",
+  "🌸 Have the best birthday ever!",
+  "🥰 Happy Birthday Sweetheart",
+  "❤️ You deserve all the happiness",
+  "🎂 Many Many Happy Returns!",
+  "✨ Keep Smiling Always",
+  "💕 Love You So Much",
+  "🎊 Enjoy Your Special Day!",
+  "🌹 Happy Birthday My Jaan"
+];
+
+function startBirthdaySpam(){
+
+  const area = document.getElementById("birthdayArea");
+
+  setInterval(()=>{
+
+    const wish = document.createElement("div");
+
+    wish.className = "wish";
+    wish.innerText =
+      birthdayMessages[
+        Math.floor(Math.random()*birthdayMessages.length)
+      ];
+
+    wish.style.left =
+      Math.random()*90 + "%";
+
+    wish.style.animationDuration =
+      (3 + Math.random()*3) + "s";
+
+    area.appendChild(wish);
+
+    setTimeout(()=>{
+      wish.remove();
+    },6500);
+
+  },250);
+}
+
+
+/* YES */
+
+function yesLove(){
+
+  document.getElementById("page4")
+    .classList.remove("active");
+
+  document.getElementById("page5")
+    .classList.add("active");
+
+  currentPage = 5;
+
+  kissSpam();
+
+}
+
+
+/* KISS SPAM */
+
+function kissSpam(){
+
+  const area = document.getElementById("kissArea");
+
+  for(let i=0;i<35;i++){
+
+    setTimeout(()=>{
+
+      const kiss = document.createElement("div");
+
+      kiss.className = "kiss";
+      kiss.innerText =
+        ["💋","😘","💋","💕","😘"][Math.floor(Math.random()*5)];
+
+      kiss.style.left =
+        (Math.random()*80) + "vw";
+
+      kiss.style.top =
+        (Math.random()*50) + "vh";
+
+      kiss.style.setProperty(
+        "--x",
+        ((Math.random()-.5)*500) + "px"
+      );
+
+      kiss.style.setProperty(
+        "--y",
+        ((Math.random()-.5)*500) + "px"
+      );
+
+      area.appendChild(kiss);
+
+      setTimeout(()=>{
+        kiss.remove();
+      },3000);
+
+    },i*80);
+  }
+}
+
+
+/* NO BUTTON FUN EFFECT */
+
+function moveNo(btn){
+
+  btn.style.position="fixed";
+
+  btn.style.left =
+    Math.random()*70 + 10 + "%";
+
+  btn.style.top =
+    Math.random()*70 + 10 + "%";
+}
+
+</script>
+
+</body>
+  </html>
